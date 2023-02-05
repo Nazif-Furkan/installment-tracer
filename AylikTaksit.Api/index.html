@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html lang="tr">
+<body>
+
+<h2>AddTransaction</h2>
+
+<form id="addTransaction">
+    <label for="txtTitle">Title:</label><br>
+    <input type="text" id="txtTitle" name="txtTitle" value=""><br>
+    <label for="doubleAmount">Amount:</label><br>
+    <input type="text" id="doubleAmount" name="txtAmount" value="0.00"><br><br>
+    <label for="intInstallment">Installment:</label><br>
+    <input type="text" id="intInstallment" name="intInstallment" value="1"><br><br>
+   
+    <button type="button">Add</button>
+</form>
+
+
+
+<p id="transactionList">
+</p>
+
+<p id="requestJson">
+</p>
+<script>
+    var getValue = (id)=>{
+        return document.getElementById(id).value;
+    }
+    var domElement = {
+        transactionList : ()=> document.getElementById("transactionList"),
+        requestJson : ()=> document.getElementById("requestJson"),
+    }
+    var updateTransactions = () => {
+        fetch('/Transaction/All')
+            .then(async (response) => {
+                if (response.status === 200){
+                    var r = await response.json();
+                    let result = "";
+                    for (const rKey in r) {
+                        const item = r[rKey];
+                        result += JSON.stringify(item)  + "\n";
+                    }
+                    domElement.transactionList().innerText = result;
+                 
+                }
+            })
+            .then((data) => console.log(data));
+    }
+    updateTransactions();
+    
+    document.querySelector("#addTransaction button").onclick = ()=>{
+        var obj = {
+            "title": getValue("txtTitle"),
+            "amount":Number.parseFloat(getValue("doubleAmount")),
+            "dollarCurrencyWhenSpend": 0,
+            "installment": 0,
+            "groupId": 0,
+            "connectedAccount": 0
+        };
+        
+        document.querySelector("#requestJson").innerText = JSON.stringify(obj)
+            .replaceAll(",",",\n")
+            .replaceAll("{","{\n")
+            .replaceAll("}","\n}");
+
+        fetch('/Transaction/AddTransaction',{
+            method: "POST",
+            body: JSON.stringify(obj),
+            headers : {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(async (response) => {
+                if (response.status === 200){
+                    updateTransactions();
+                }
+            })
+            .then((data) => console.log(data));
+        
+         
+    };
+</script>
+
+</body>
+</html>
+
