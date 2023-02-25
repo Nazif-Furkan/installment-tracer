@@ -9,7 +9,7 @@ public class UiController: ControllerBase
 {
     public IActionResult Get()
     {
-        
-        return Content(System.IO.File.ReadAllText("index.html"),"text/html");
+        var dolar = Helper.DovizGoster().Dolar;
+        return Content(System.IO.File.ReadAllText("index.html").Replace("{dolar}",$"{dolar}"),"text/html");
     }
 }

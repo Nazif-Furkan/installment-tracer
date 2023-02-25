@@ -31,6 +31,7 @@ public static class CmdAdd
         {
             return HandleSecondPartMonthlyAmountXInstallmentCount(secondPart);
         }
+        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -46,6 +47,6 @@ public static class CmdAdd
         var monthCount = int.Parse(splitParameters[1]);
         
         
-        
+        throw new NotImplementedException();
     }
 }

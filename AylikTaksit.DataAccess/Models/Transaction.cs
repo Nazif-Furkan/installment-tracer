@@ -12,6 +12,7 @@ public class Transaction
     public double Amount { get; set; }
     public double? DollarCurrencyWhenSpend { get; set; }
     public int Installment { get; set; }
+    public bool IsAmountFirstCalculation { get; set; } = true;
     public int GroupId { get; set; }
     public int? ConnectedAccount{ get; set; }
 }

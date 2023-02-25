@@ -31,14 +31,14 @@ Console.ReadLine();
 // Send cancellation request to stop bot
 cts.Cancel();
 
-async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
 {
     // Only process Message updates: https://core.telegram.org/bots/api#message
     if (update.Message is not { } message)
-        return;
+        return Task.CompletedTask;
     // Only process text messages
     if (message.Text is not { } messageText)
-        return;
+        return Task.CompletedTask;
 
     var chatId = message.Chat.Id;
 
@@ -50,6 +50,8 @@ async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, Cancel
     {
        
     }
+
+    return Task.CompletedTask;
 
     // Echo received message text
     /* Message sentMessage = await botClient.SendTextMessageAsync(

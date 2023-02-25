@@ -3,6 +3,7 @@ using System;
 using AylikTaksit.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AylikTaksit.DataAccess.Migrations
 {
     [DbContext(typeof(AylikTaksitDbContext))]
-    partial class AylikTaksitDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230225063025_TransactionAmountEqualsInstallmentXInstallment")]
+    partial class TransactionAmountEqualsInstallmentXInstallment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
